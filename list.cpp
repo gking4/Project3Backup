@@ -81,9 +81,7 @@ template<typename T>
 void List<T>::insert(T item){
         Node<T> *ptr_to_Node = new Node<T>(item, head);
         head = ptr_to_Node;
-
         ptr_to_Node = NULL;
-
         length++;
 }//insert
 
@@ -111,5 +109,8 @@ int List<T>::size()
 template<typename T>
 T List<T>::front()
 {
+  if(head != NULL)
+  {
   return head->value;
+  }
 }//front

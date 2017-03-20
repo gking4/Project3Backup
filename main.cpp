@@ -13,20 +13,26 @@ void nextCheck(Stack<double> ast)
   double num = 0;
   if(isdigit(cin.peek()) == true || cin.peek() == '.')
   {
+    cout<<"starting isdigit check"<<endl;
     cin>>num;
     ast.push(num);
+    cout<<"ending isdigit check"<<endl;
     return;
   }
   else if(isspace(cin.peek() == true))
   {
+    cout<<"starting space skip"<<endl;
     cin.ignore();
     nextCheck(ast);
+    cout<<"ending space skip"<<endl;
   }
   else
   {
+    cout<<"operator start"<<endl;
     char op;
     cin>>op;
     isOperator(op, ast);
+    cout<<"operator stop"<<endl;
   }
 }
 
@@ -36,33 +42,40 @@ void isOperator(char op, Stack<double> ast)
   double rhs = 0;
   if(op == '+')
   {
+    cout<<"+ operator start"<<endl;
     rhs = ast.top();
     ast.pop();
     lhs = ast.top();
     ast.pop();
     rhs = lhs + rhs;
     ast.push(rhs);
+    cout<<"+ operator stop"<<endl;
   }//if +
   else if(op == '-')
   {
+    cout<<"- operator start"<<endl;
     rhs = ast.top();
     ast.pop();
     lhs = ast.top();
     ast.pop();
     rhs = lhs - rhs;
     ast.push(rhs);
+    cout<<"- operator stop"<<endl;
   }//if -
   else if(op == '*')
   {
+    cout<<"* operator start"<<endl;
     rhs = ast.top();
     ast.pop();
     lhs = ast.top();
     ast.pop();
     rhs = lhs * rhs;
     ast.push(rhs);
+    cout<<"* operator stop"<<endl;
   }//if *
   else if(op == '/')
   {
+    cout<<"divide operator start"<<endl;
     rhs = ast.top();
     ast.pop();
     lhs = ast.top();
@@ -77,10 +90,12 @@ void isOperator(char op, Stack<double> ast)
     {
       rhs = lhs / rhs;
       ast.push(rhs);
+      cout<<"divide operator stop"<<endl;
     }
   }//if /
   else if(op == '^')
   {
+    cout<<"power operator start"<<endl;
     rhs = ast.top();
     ast.pop();
     lhs = ast.top();
@@ -89,6 +104,7 @@ void isOperator(char op, Stack<double> ast)
     {
       rhs = pow(lhs, rhs);
       ast.push(rhs);
+      cout<<"power operator stop"<<endl;
     }
   }//if ^
 }
@@ -121,8 +137,9 @@ int main()
     double result;
     while(cin.peek() != EOF)
     {
+      cout<<"while loop start"<<endl;
       nextCheck(ast);
-
+      cout<<"while loop stop"<<endl;
     }//while
     if(ast.empty() == true)
     {
@@ -132,9 +149,11 @@ int main()
     }//if
     else
     {
+      cout<<"starting result print"<<endl;
       result = ast.top();
       ast.pop();
       cout<<result<<endl;
+      cout<<"ending result print"<<endl;
     }//else
     return 0;
 }//main

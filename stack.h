@@ -10,7 +10,7 @@ class Stack
 private:
   List<T> alist;
 public:
-  Stack(): alist() {};
+  Stack(): alist(List<T>()) {};
   ~Stack() {alist.clear();}
   bool empty() {if(alist.size() == 0){return true;} else{return false;}}
   T top(){return alist.front();}
