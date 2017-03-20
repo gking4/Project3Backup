@@ -79,13 +79,13 @@ int List<T>::size()//returns the size
 template <typename T>
 T List<T>::front()//accesses the front value
 {
-  if(length == 0)
-  {
-    cerr << "Error: Invalid expression." << endl;
-  }
   if(head != NULL)
   {
     return head->value;
+  }
+  else  if(length == 0)
+  {
+    cerr << "Error: Invalid expression." << endl;
   }
 }//front
 

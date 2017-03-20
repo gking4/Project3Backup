@@ -4,83 +4,88 @@
 #include <cmath>
 #include <stdio.h>
 
-void isOperator(char op, Stack<double> ast);
-void nextCheck(Stack<double> ast);
-bool powerCheck(double lhs, double rhs);
+void isOperator(char & op, Stack<double> &  ast);
+void nextCheck(Stack<double> & ast);
+bool powerCheck(double & lhs, double & rhs);
 
-void nextCheck(Stack<double> ast)
+void nextCheck(Stack<double> & ast)
 {
   double num = 0;
   if(isdigit(cin.peek()) == true || cin.peek() == '.')
   {
-    cout<<"starting isdigit check"<<endl;
+    //cout<<"starting isdigit check"<<endl;
     cin>>num;
     ast.push(num);
-    cout<<"ending isdigit check"<<endl;
+    //cout<<"ending isdigit check"<<endl;
     if(cin.peek() == '.')
     {
       cerr<<"Error: Invalid expression."<<endl;
-      exit(EXIT_FAILURE);
+      exit(1);
     }
     return;
   }
   else if(isspace(cin.peek()))
   {
-    cout<<"starting space skip"<<endl;
+    //cout<<"starting space skip"<<endl;
     cin.ignore();
     nextCheck(ast);
-    cout<<"ending space skip"<<endl;
+    //cout<<"ending space skip"<<endl;
   }
   else
   {
-    cout<<"operator start"<<endl;
+    //cout<<"operator start"<<endl;
     char op;
     cin>>op;
+    if(ast.size() < 2)
+    {
+    cerr<<"Error: Invalid expression."<<endl;
+    exit(1);
+    }
     isOperator(op, ast);
-    cout<<"operator stop"<<endl;
+    //cout<<"operator stop"<<endl;
   }
 }
 
-void isOperator(char op, Stack<double> ast)
+void isOperator(char & op, Stack<double> & ast)
 {
   double lhs = 0;
   double rhs = 0;
   if(op == '+')
   {
-    cout<<"+ operator start"<<endl;
+    //cout<<"+ operator start"<<endl;
     rhs = ast.top();
     ast.pop();
     lhs = ast.top();
     ast.pop();
     rhs = lhs + rhs;
     ast.push(rhs);
-    cout<<"+ operator stop"<<endl;
+    //cout<<"+ operator stop"<<endl;
   }//if +
   else if(op == '-')
   {
-    cout<<"- operator start"<<endl;
+    //cout<<"- operator start"<<endl;
     rhs = ast.top();
     ast.pop();
     lhs = ast.top();
     ast.pop();
     rhs = lhs - rhs;
     ast.push(rhs);
-    cout<<"- operator stop"<<endl;
+  //  cout<<"- operator stop"<<endl;
   }//if -
   else if(op == '*')
   {
-    cout<<"* operator start"<<endl;
+    //cout<<"* operator start"<<endl;
     rhs = ast.top();
     ast.pop();
     lhs = ast.top();
     ast.pop();
     rhs = lhs * rhs;
     ast.push(rhs);
-    cout<<"* operator stop"<<endl;
+    //cout<<"* operator stop"<<endl;
   }//if *
   else if(op == '/')
   {
-    cout<<"divide operator start"<<endl;
+    //cout<<"divide operator start"<<endl;
     rhs = ast.top();
     ast.pop();
     lhs = ast.top();
@@ -89,18 +94,18 @@ void isOperator(char op, Stack<double> ast)
     {
     //  cout<<"Error: Tried to divide by 0."<<endl;
       cerr<<"Error: Invalid expression."<<endl;
-      exit(EXIT_FAILURE);
+      exit(1);
     }
     else
     {
       rhs = lhs / rhs;
       ast.push(rhs);
-      cout<<"divide operator stop"<<endl;
+      //cout<<"divide operator stop"<<endl;
     }
   }//if /
   else if(op == '^')
   {
-    cout<<"power operator start"<<endl;
+    //cout<<"power operator start"<<endl;
     rhs = ast.top();
     ast.pop();
     lhs = ast.top();
@@ -109,25 +114,25 @@ void isOperator(char op, Stack<double> ast)
     {
       rhs = pow(lhs, rhs);
       ast.push(rhs);
-      cout<<"power operator stop"<<endl;
+      //cout<<"power operator stop"<<endl;
     }
   }//if ^
 }
 
-bool powerCheck(double lhs, double rhs)
+bool powerCheck(double & lhs, double & rhs)
 {
   if(lhs < 0 && floor(rhs) != rhs)
   {
   //  cout<<"Error: Trying to square root a negative number."<<endl;
     cerr<<"Error: Invalid expression."<<endl;
-    exit(EXIT_FAILURE);
+    exit(1);
     return false;
   }
   else if(lhs == 0 && rhs < 0)
   {
   //  cout<<"Error: trying to divide by 0."<<endl;
     cerr<<"Error: Invalid expression."<<endl;
-    exit(EXIT_FAILURE);
+    exit(1);
     return false;
   }
   else
@@ -142,23 +147,23 @@ int main()
     double result;
     while(cin.peek() != EOF)
     {
-      cout<<"while loop start"<<endl;
+      //cout<<"while loop start"<<endl;
       nextCheck(ast);
-      cout<<"while loop stop"<<endl;
+      //cout<<"while loop stop"<<endl;
     }//while
-    if(ast.empty() == true)
+    if(ast.empty() != 1)
     {
     //  cout<<"Error: Stack is empty."<<endl;
       cerr<<"Error: Invalid expression."<<endl;
-      exit(EXIT_FAILURE);
+      exit(1);
     }//if
     else
     {
-      cout<<"starting result print"<<endl;
+      //cout<<"starting result print"<<endl;
       result = ast.top();
       ast.pop();
       cout<<result<<endl;
-      cout<<"ending result print"<<endl;
+     // cout<<"ending result print"<<endl;
     }//else
     return 0;
 }//main
