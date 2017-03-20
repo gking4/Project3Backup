@@ -1,18 +1,17 @@
-#include <iostream>
-
-using namespace std;
-
 #ifndef NODE_H
 #define NODE_H
 
-template<typename T>
+#include <iostream>
+
+template <typename T>
+
 class Node
 {
-public:
-  Node* next;
-  T value;
-  Node(): value(T()), next(NULL){};
-  Node(T item, Node* ptr): value(item), next(ptr) {};
+  public:
+    Node<T>(): value(T()), next(NULL) {};
+    Node<T>(T item, Node* ptr): value(item), next(ptr) {};
+    Node* next;
+    T value;
 };
 
 #endif

@@ -17,9 +17,14 @@ void nextCheck(Stack<double> ast)
     cin>>num;
     ast.push(num);
     cout<<"ending isdigit check"<<endl;
+    if(cin.peek() == '.')
+    {
+      cerr<<"Error: Invalid expression."<<endl;
+      exit(EXIT_FAILURE);
+    }
     return;
   }
-  else if(isspace(cin.peek() == true))
+  else if(isspace(cin.peek()))
   {
     cout<<"starting space skip"<<endl;
     cin.ignore();
